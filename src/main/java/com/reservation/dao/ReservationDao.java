@@ -11,18 +11,38 @@ import com.reservation.model.Reservation;
 import com.utils.DatabaseConnection;
 
 public class ReservationDao {
-	public List<Reservation> getReservationsByUsername(String username) throws SQLException {
-        List<Reservation> reservations = new ArrayList<>();
-        String sql = "SELECT r.id, r.date_rv, r.heure, p.username, p.email, p.telephone " +
-                "FROM reservation r " +
-                "JOIN patient p ON r.id_patient = p.id " +
-                "WHERE p.username = ?";
+
+    // Ajouter une réservation
+    public void ajouterReservation(int patientId, String date, String heure, String motif) {
+        String sql = "INSERT INTO reservation (id_patient, date_rv, heure, motif) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        	statement.setString(1, username);
-            try(ResultSet rs = statement.executeQuery()){
+            stmt.setInt(1, patientId);
+            stmt.setString(2, date);
+            stmt.setString(3, heure);
+            stmt.setString(4, motif);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Récupérer les réservations d'un patient
+    public List<Reservation> getReservationsByUsername(String username) {
+        List<Reservation> reservations = new ArrayList<>();
+        String sql = "SELECT r.id, p.username, p.email, p.telephone, r.date_rv, r.heure, r.motif " +
+                     "FROM reservation r " +
+                     "JOIN patient p ON r.id_patient = p.id " +
+                     "WHERE p.username = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Reservation reservation = new Reservation(
@@ -31,17 +51,14 @@ public class ReservationDao {
                     rs.getString("email"),
                     rs.getString("telephone"),
                     rs.getString("date_rv"),
-                    rs.getString("heure")
+                    rs.getString("heure"),
+                    rs.getString("motif")
                 );
                 reservations.add(reservation);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return reservations;
     }
-	}
 }
-
-
