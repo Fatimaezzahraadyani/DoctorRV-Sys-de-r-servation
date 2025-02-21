@@ -30,10 +30,16 @@
                 <input type="text" name="telephone" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label class="form-label">Date et heure du rendez-vous :</label>
-                <input type="datetime-local" name="dateRdv" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Continuer</button>
+   				 <label class="form-label">Date du rendez-vous :</label>
+    			 <input type="date" name="dateRdv" class="form-control" required>
+			</div>
+
+			<div class="mb-3">
+ 			   <label class="form-label">Heure du rendez-vous :</label>
+    			<input type="time" name="heureRdv" class="form-control" required>
+			</div>
+            
+            <a href="" type="submit" class="btn btn-primary">Continuer</a>
         </form>
     </div>
 
