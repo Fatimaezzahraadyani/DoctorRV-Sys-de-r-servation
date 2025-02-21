@@ -39,7 +39,7 @@
     			<input type="time" name="heureRdv" class="form-control" required>
 			</div>
             
-            <a href="" type="submit" class="btn btn-primary">Continuer</a>
+            <button type="submit" class="btn btn-primary">Continuer</button>
         </form>
     </div>
 

@@ -19,8 +19,9 @@ public class PatientDao {
 		String sql = "INSERT INTO patient (username, email, telephone) VALUES (?, ?, ?)";
 	
 		
-		 try (Connection conn = DatabaseConnection.getConnection();
-	             PreparedStatement statement = conn.prepareStatement(sql)) {
+		 try {
+			 Connection conn = DatabaseConnection.getConnection();
+	             PreparedStatement statement = conn.prepareStatement(sql);
 	            
 			 statement.setString(1, patient.getUsername());
 			 statement.setString(2, patient.getEmail());

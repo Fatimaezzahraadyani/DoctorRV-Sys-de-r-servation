@@ -13,10 +13,10 @@ import com.utils.DatabaseConnection;
 public class ReservationDao {
 	public List<Reservation> getReservationsByUsername(String username) throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
-        String sql = "SELECT r.id, r.date_rv, r.heure " +
-                     "FROM reservation r " +
-                     "JOIN patient p ON r.id_patient = p.id " +
-                     "WHERE p.username = ?";
+        String sql = "SELECT r.id, r.date_rv, r.heure, p.username, p.email, p.telephone " +
+                "FROM reservation r " +
+                "JOIN patient p ON r.id_patient = p.id " +
+                "WHERE p.username = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -27,8 +27,11 @@ public class ReservationDao {
             while (rs.next()) {
                 Reservation reservation = new Reservation(
                     rs.getInt("id"),
-                    rs.getString("date_rv").toString(),
-                    rs.getString("heure").toString()
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("telephone"),
+                    rs.getString("date_rv"),
+                    rs.getString("heure")
                 );
                 reservations.add(reservation);
             }
