@@ -1,21 +1,23 @@
 package com.reservation.model;
 
-import com.patient.model.Patient;
+public class Reservation {
 
-public class Reservation extends Patient {
-    private int id;
-    private String dateRv;
-    private String heure;
+    private int id;                // ID de la réservation
+    private String dateRV;         // Date et heure de la réservation (format yyyy-MM-dd HH:mm)
+    private String heure;          // Heure du rendez-vous
+    private int idPatient;         // ID du patient
+    private int idMedecin;         // ID du médecin
 
-    // Constructor
-    public Reservation(int id, String dateRv, String heure, String username, String email, String telephone) {
-        super(username, email, telephone);  // Appelle le constructeur de la classe Patient
+    // Constructeur
+    public Reservation(int id, String dateRV, String heure, int idPatient, int idMedecin) {
         this.id = id;
-        this.dateRv = dateRv;
+        this.dateRV = dateRV;
         this.heure = heure;
+        this.idPatient = idPatient;
+        this.idMedecin = idMedecin;
     }
 
-    // Getters and Setters
+    // Getters et Setters
     public int getId() {
         return id;
     }
@@ -24,12 +26,12 @@ public class Reservation extends Patient {
         this.id = id;
     }
 
-    public String getDateRv() {
-        return dateRv;
+    public String getDateRV() {
+        return dateRV;
     }
 
-    public void setDateRv(String dateRv) {
-        this.dateRv = dateRv;
+    public void setDateRV(String dateRV) {
+        this.dateRV = dateRV;
     }
 
     public String getHeure() {
@@ -39,4 +41,22 @@ public class Reservation extends Patient {
     public void setHeure(String heure) {
         this.heure = heure;
     }
+
+    public int getIdPatient() {
+        return idPatient;
+    }
+
+    public void setIdPatient(int idPatient) {
+        this.idPatient = idPatient;
+    }
+
+    public int getIdMedecin() {
+        return idMedecin;
+    }
+
+    public void setIdMedecin(int idMedecin) {
+        this.idMedecin = idMedecin;
+    }
+
+	
 }
